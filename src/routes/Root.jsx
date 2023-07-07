@@ -4,16 +4,16 @@ import Main from "../Components/Layout/Main/Main";
 import Footer from "../Components/Footer/Footer";
 const list = [
     {
-        link: 'women', title: 'женщины', categories: [{
-            link: 'bras', title: 'Бюстгальтеры'
-        },
-        { link: 'panties', title: 'Трусы' },
-        { link: 'socks', title: 'Носки' },
-        { link: 'bathrobes', title: 'Халаты' },
-        { link: 'thermal', title: 'Термобелье' },
-        { link: 'pijamas', title: 'Пижамы' }
+        link: 'women', title: 'женщины', categories:
+            [
+                { link: 'bras', title: 'Бюстгальтеры' },
+                { link: 'panties', title: 'Трусы' },
+                { link: 'socks', title: 'Носки' },
+                { link: 'bathrobes', title: 'Халаты' },
+                { link: 'thermal', title: 'Термобелье' },
+                { link: 'pijamas', title: 'Пижамы' }
 
-        ]
+            ]
     },
     {
         link: 'men', title: 'мужчины', categories: [
