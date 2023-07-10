@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { setActiveGender } from "../../../features/navigationSlice.js";
 
-const Navigation = ({ list }) => {
+
+const Navigation = () => {
     const location = useLocation();
 
     const dispatch = useDispatch();
@@ -17,10 +18,10 @@ const Navigation = ({ list }) => {
     }, [gender, dispatch])
 
     return (
-        <nav>
+        <nav >
             <Container>
-                <Gender list={list} />
-                <Category list={list} />
+                <Gender />
+                <Category />
             </Container>
         </nav>
     )
