@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 const Footer = () => {
     const { genderList, categories } = useSelector((state) => state.navigation);
-    console.log(categories);
+
     return (
 
         <footer>
