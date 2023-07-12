@@ -6,7 +6,7 @@ const ErrorPage = () => {
     return (
         <div>
             <h2>Error 404</h2>
-            <p>{error?.message || 'Неизвестная ошибка'}</p>
+            <p>{Error?.message || 'Неизвестная ошибка'}</p>
         </div>
     )
 

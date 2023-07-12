@@ -6,7 +6,7 @@ const Color = ({ color, check }) => {
     const colorRef = useRef(null);
     useEffect(() => {
         colorRef.current.style.setProperty('--data-color', color);
-    }, color)
+    }, [color])
 
 
     return (
