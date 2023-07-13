@@ -9,13 +9,18 @@ import Banner from "../Banner/Banner";
 const MainPage = () => {
     const { gender = 'women', category } = useParams();
     const dispatch = useDispatch();
-
-    const { activeGender, categories } = useSelector(state => state.navigation);
-
+    const { activeGender, categories, genderList } = useSelector(state => state.navigation);
     const genderData = categories[activeGender];
+    const categoryData = genderData?.list.find((item) => item.slug === category);
     useEffect(() => {
-        dispatch(setActiveGender(gender))
-    }, [gender, dispatch]);
+        if (gender) {
+            dispatch(setActiveGender(gender))
+        } else if (genderList[0]) {
+            dispatch(setActiveGender(genderList[0]))
+            dispatch(fetchGender({ gender, category }))
+        }
+
+    }, [gender, genderList, dispatch]);
 
     useEffect(() => {
         if (gender && category) {
@@ -30,8 +35,8 @@ const MainPage = () => {
     }, [gender, category, dispatch]);
     return (
         <>
-            <Banner data={genderData?.banner} />
-            <Goods categoryData={genderData?.list.find((item) => item.slug === category)} />
+            {!category && <Banner data={genderData?.banner} />}
+            <Goods categoryData={categoryData} />
         </>
     )
 
