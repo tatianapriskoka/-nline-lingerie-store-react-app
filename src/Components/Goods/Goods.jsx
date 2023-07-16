@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
 import s from './MainPage.module.scss';
-
-import Container from '../Components/Layout/Container/Container';
-import Product from '../Components/Product/Product';
+import Product from '../Product/Product'
+import Container from "../Layout/Container/Container";
 
 const Goods = ({ categoryData }) => {
     const { goodsList } = useSelector(state => state.goods);
