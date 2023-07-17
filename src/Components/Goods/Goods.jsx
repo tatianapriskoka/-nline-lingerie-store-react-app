@@ -3,15 +3,13 @@ import s from './MainPage.module.scss';
 import Product from '../Product/Product'
 import Container from "../Layout/Container/Container";
 
-const Goods = ({ categoryData }) => {
+const Goods = ({ title }) => {
     const { goodsList } = useSelector(state => state.goods);
 
-
-    const title = categoryData?.title ?? 'Новинки';
     return (
         <section className={s.goods}>
             <Container >
-                <h2 className={s.title}>{title}</h2>
+                <h2 className={s.title}>{title ?? 'Новинки'}</h2>
                 <ul className={s.list}>
                     {goodsList.map(item => <li key={item.id}>
                         <Product {...item} />
