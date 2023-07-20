@@ -6,27 +6,24 @@ import { usePageFromSearchParams } from "../../hooks/usePageFromSeachParams";
 
 const FavoritePage = () => {
     const dispatch = useDispatch();
-
-    const favorites = useSelector(state => state.favorites);
+    const favorites = useSelector((state) => state.favorites);
     const page = usePageFromSearchParams(dispatch);
-    console.log('page', page);
 
     useEffect(() => {
-        const param = { list: favorites };
-        if (page) {
-            param.page = page;
-        }
-
         if (favorites) {
-            dispatch(fetchCategory(param))
+            const param = { list: favorites };
+            if (page) {
+                param.page = page;
+            }
+            dispatch(fetchCategory(param));
         }
+    }, [favorites, page, dispatch]);
 
-    }, [favorites, dispatch, page]);
-
-
-    return (
-        <Goods title='Избранное' />
-    )
+    return favorites.length ? (
+        <Goods title="Избранное" />
+    ) : (
+        <h3 className={s.empty}>Вы ничего не добавили в избранное</h3>
+    );
 }
 
 

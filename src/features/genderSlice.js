@@ -34,7 +34,7 @@ export const goodsSlice = createSlice({
     },
     reducers: {
         setPage: (state, action) => {
-            state.page = action.payload
+            state.page = action.payload;
         },
 
     },
