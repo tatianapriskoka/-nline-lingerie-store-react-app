@@ -12,12 +12,14 @@ import ProductSize from './ProductSize/ProductSize';
 import Goods from '../Goods/Goods';
 import { fetchCategory } from '../../features/genderSlice';
 import BtnLike from '../BtnLike/BtnLike';
+import { addToCart } from '../../features/cartSlice';
 
 const ProductPage = () => {
     const dispatch = useDispatch();
     const { product } = useSelector(state => state.product);
+    const { colorList } = useSelector(state => state.color);
     const { id } = useParams();
-    const { gender, category } = product;
+    const { gender, category, colors } = product;
     const [selectedColor, setSelectedColors] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const [count, setCount] = useState(1);
@@ -46,13 +48,26 @@ const ProductPage = () => {
 
     useEffect(() => {
         dispatch(fetchCategory({ gender, category, count: 4, top: true, exclude: id }))
-    }, [dispatch, gender, category, id])
+    }, [dispatch, gender, category, id]);
+
+
+    useEffect(() => {
+        if (colorList?.length && colors?.length) {
+            setSelectedColors(colorList.find(color => color.id === colors[0]).title)
+        }
+    }, [colorList, colors])
+
     return (
         <>
             <section className={s.card}>
                 <Container className={s.container}>
                     <img className={s.image} src={`${API_URL}/${product.pic}`} alt={product.title} />
-                    <form className={s.content} action="">
+                    <form className={s.content} onSubmit={e => {
+                        e.preventDefault();
+                        dispatch(addToCart({
+                            id, color: selectedColor, size: selectedSize, count
+                        }));
+                    }}>
                         <h2 className={s.title}>{product.title}</h2>
                         <p className={s.price}>{`руб ${product.price}`}</p>
                         <div className={s.vendorCode}>
@@ -62,9 +77,10 @@ const ProductPage = () => {
                         <div className={s.color}>
                             <p className={cn(s.subtitle, s.colorTitle)}>Цвет</p>
                             <ColorList
-                                colors={product.colors}
+                                colors={colors}
                                 selectedColor={selectedColor}
-                                handleColorChange={handleColorChange} />
+                                handleColorChange={handleColorChange}
+                            />
                         </div>
                         <ProductSize size={product.size}
                             selectedSize={selectedSize}
@@ -81,10 +97,8 @@ const ProductPage = () => {
                                 handleDecrement={handleDecrement}
                             />
 
-                            <button className={s.addCard} type='submit'>В корзину</button>
-                            <button className={s.favorite} aria-label='Добавить в избранное' type='button'>
-                                <BtnLike id={id} />
-                            </button>
+                            <button className={s.addCart} type='submit'>В корзину</button>
+                            <BtnLike id={id} />
                         </div>
                     </form>
                 </Container>
