@@ -6,9 +6,12 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as LikeSVG } from '../../../assets/heart.svg'
 import { ReactComponent as SearchSVG } from '../../../assets/search.svg';
 import { ReactComponent as CartSVG } from '../../../assets/cart.svg';
+import { useSelector } from "react-redux";
 
 
 const Top = () => {
+    const { countItems } = useSelector(state => state.cart);
+
     return (
         <div className={s.top}>
             <Container className={s.container}>
@@ -26,6 +29,7 @@ const Top = () => {
                         <li className={s.navItem}>
                             <NavLink to='/cart' className={s.link}>
                                 <CartSVG />
+                                <span className={s.linkCount}>{countItems}</span>
                             </NavLink>
                         </li>
                         <li className={s.navItem}>
