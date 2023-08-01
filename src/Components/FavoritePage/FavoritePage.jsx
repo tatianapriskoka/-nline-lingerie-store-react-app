@@ -3,6 +3,7 @@ import Goods from "../Goods/Goods";
 import { useEffect } from "react";
 import { fetchCategory } from "../../features/genderSlice";
 import { usePageFromSearchParams } from "../../hooks/usePageFromSeachParams";
+import s from './FavoritePage.module.scss'
 
 const FavoritePage = () => {
     const dispatch = useDispatch();

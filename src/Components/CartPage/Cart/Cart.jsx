@@ -25,7 +25,7 @@ const Cart = ({ cartItems, goodsList }) => {
                             </li>
                         ))}
                     </ul> :
-                    <h3>В корзине пусто</h3>
+                    <h3 className={s.empty}>В корзине пусто</h3>
                 }
                 <div className={s.total}>
                     <p>Итого</p>
