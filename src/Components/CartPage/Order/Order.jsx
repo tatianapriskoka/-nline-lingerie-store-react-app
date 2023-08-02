@@ -3,23 +3,31 @@ import Container from '../../Layout/Container/Container';
 import s from './Order.module.scss';
 import { PatternFormat } from 'react-number-format';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
 
 const Order = ({ cartItems }) => {
+    const dispatch = useDispatch();
     const handleSubmitOrder = (values) => {
-        console.log({ cartItems, values });
+        dispatch(sendOrder({ order: cartItems, values }));
     };
 
-    const validationShema = Yup.object({
-        fio: 'Max',
-        address: '',
-        phone: '',
-        email: '',
-        delivery: 'self',
+    const validationSchema = Yup.object({
+        fio: Yup.string().required('Заполните ФИО'),
+        address: Yup.string().test('Delivery test', 'Введите адрес доставки',
+
+            function (value) {
+                return this.parent.delivery === 'delivery' ? !!value : true
+            }),
+        phone: Yup.string()
+            .required("Заполните номер телефона")
+            .matches(
+                /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+                "Некорректный номер телефона",
+            ),
+        email: Yup.string().email('Некорректный формат email').required('Заполните email'),
+        delivery: Yup.string().required('Выберите способ доставки'),
     })
 
-    const validationSchema = () => {
-
-    }
 
     return (
         <section>
@@ -62,7 +70,7 @@ const Order = ({ cartItems }) => {
                                 <Field
                                     as={PatternFormat}
                                     className={s.input}
-                                    format='+(###)-###-####'
+                                    format='+7(###)-###-####'
                                     mask='_'
                                     placeholder='Номер телефона*'
                                     name='phone'
