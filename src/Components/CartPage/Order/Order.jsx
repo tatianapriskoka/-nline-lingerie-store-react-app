@@ -4,6 +4,7 @@ import s from './Order.module.scss';
 import { PatternFormat } from 'react-number-format';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import { sendOrder } from '../../../features/cartSlice';
 
 const Order = ({ cartItems }) => {
     const dispatch = useDispatch();
